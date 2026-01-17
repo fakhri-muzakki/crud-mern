@@ -35,6 +35,9 @@ const PeopleTable = ({
     handleAddData,
     handleEditData,
   } = useUsersTable(initialData, totalPagesParams);
+
+  console.log(page);
+
   const [isView, setIsView] = useState(false);
 
   const handleView = (person: Person) => {

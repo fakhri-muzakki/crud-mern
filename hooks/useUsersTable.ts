@@ -30,9 +30,10 @@ export function useUsersTable(initial: Person[], totalPagesParam: number) {
     }
   };
 
-  const reFetchData = async () => {
+  const reFetchData = async (page?: number) => {
     try {
-      const res = await getData<APIResponse>(`/api/users`);
+      const currentPage = (page || 0) + 1;
+      const res = await getData<APIResponse>(`/api/users?page=${currentPage}`);
       setTotalPages(res.meta.totalPages);
       setData([...res.data]);
     } catch (error) {
@@ -79,7 +80,7 @@ export function useUsersTable(initial: Person[], totalPagesParam: number) {
     try {
       await deleteUser(operatingUserId);
       toast.success("User deleted");
-      await reFetchData();
+      await reFetchData(page);
     } catch (error) {
       toast.success(String(error));
       setData((prev) => prev.filter((p) => (p.isDeleting ? user : p)));
@@ -93,6 +94,7 @@ export function useUsersTable(initial: Person[], totalPagesParam: number) {
     try {
       const data = await createUser(person);
       await reFetchData();
+      setPage(0);
       setData((prev) => prev.filter((p) => (p.id === "" ? data : p)));
     } catch (error) {
       setData(previousData);
