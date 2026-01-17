@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "User Management Dashboard | CRUD App",
+  title: "Mern stack | CRUD",
   description:
     "Personal portfolio project showcasing a CRUD single-page application for managing user data in a responsive table interface.",
 
